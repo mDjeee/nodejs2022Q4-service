@@ -1,15 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete } from '@nestjs/common';
 import { AlbumService } from './album.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
+import { ValidUUID } from 'src/decorators/uuid-param.decorator';
 
 @Controller('album')
 export class AlbumController {
@@ -26,17 +19,17 @@ export class AlbumController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@ValidUUID('id') id: string) {
     return this.albumService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAlbumDto: UpdateAlbumDto) {
+  update(@ValidUUID('id') id: string, @Body() updateAlbumDto: UpdateAlbumDto) {
     return this.albumService.update(id, updateAlbumDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@ValidUUID('id') id: string) {
     return this.albumService.remove(id);
   }
 }

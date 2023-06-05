@@ -1,15 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete } from '@nestjs/common';
 import { TrackService } from './track.service';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
+import { ValidUUID } from 'src/decorators/uuid-param.decorator';
 
 @Controller('track')
 export class TrackController {
@@ -26,17 +19,17 @@ export class TrackController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@ValidUUID('id') id: string) {
     return this.trackService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTrackDto: UpdateTrackDto) {
+  update(@ValidUUID('id') id: string, @Body() updateTrackDto: UpdateTrackDto) {
     return this.trackService.update(id, updateTrackDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@ValidUUID('id') id: string) {
     return this.trackService.remove(id);
   }
 }
