@@ -6,6 +6,7 @@ import {
   Put,
   Delete,
   ValidationPipe,
+  HttpCode,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -37,6 +38,7 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
   remove(@ValidUUID('id') id: string) {
     return this.usersService.remove(id);
   }
