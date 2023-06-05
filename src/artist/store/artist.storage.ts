@@ -33,11 +33,18 @@ export class InMemoryArtistsStore implements ArtistsStore {
   }
 
   update(id: string, params: UpdateArtistDto) {
-    const artist = this.artists.find((artist) => artist.id === id);
-    const updatedArtist = {
-      ...params,
-      ...artist,
-    };
-    return updatedArtist;
+    const grammy = params.grammy;
+    const name = params.name;
+    this.artists = this.artists.map((artist) => {
+      if (artist.id === id) {
+        return Object.assign(artist, {
+          name,
+          grammy,
+        });
+      } else {
+        return artist;
+      }
+    });
+    return this.findById(id);
   }
 }
