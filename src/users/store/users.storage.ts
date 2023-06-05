@@ -50,9 +50,7 @@ class InMemoryUsersStorage implements UsersStore {
   }
 
   delete(id: string) {
-    console.log(this.users);
-    this.users = this.users.filter((user) => user.id === id);
-    console.log(this.users);
+    this.users = this.users.filter((user) => user.id !== id);
   }
 }
 

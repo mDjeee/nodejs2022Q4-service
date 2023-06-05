@@ -29,7 +29,7 @@ export class InMemoryArtistsStore implements ArtistsStore {
   }
 
   delete(id: string) {
-    this.artists = this.artists.filter((artist) => artist.id === id);
+    this.artists = this.artists.filter((artist) => artist.id !== id);
   }
 
   update(id: string, params: UpdateArtistDto) {
