@@ -6,6 +6,7 @@ import { ArtistModule } from './artist/artist.module';
 import { AlbumModule } from './album/album.module';
 import { TrackModule } from './track/track.module';
 import { FavsModule } from './favs/favs.module';
+import { InMemoryDB } from './db/db';
 
 @Module({
   imports: [UsersModule, ArtistModule, AlbumModule, TrackModule, FavsModule],

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Delete } from '@nestjs/common';
 import { FavsService } from './favs.service';
 import { ValidUUID } from 'src/decorators/uuid-param.decorator';
 

@@ -1,36 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
-import { InMemoryArtistsStore } from './store/artist.storage';
-import { InMemoryTracksStore } from 'src/track/store/track.store';
+import { InMemoryDB } from 'src/db/db';
 
 @Injectable()
 export class ArtistService {
-  constructor(
-    private storage: InMemoryArtistsStore,
-    private tracksStorage: InMemoryTracksStore,
-  ) {}
+  constructor(private storage: InMemoryDB) {}
   create(createArtistDto: CreateArtistDto) {
-    return this.storage.create(createArtistDto);
+    return this.storage.createArtist(createArtistDto);
   }
 
   findAll() {
-    return this.storage.getAll();
+    return this.storage.getAllArtists();
   }
 
   findOne(id: string) {
-    return this.storage.findById(id);
+    return this.storage.findArtistById(id);
   }
 
   update(id: string, updateArtistDto: UpdateArtistDto) {
-    return this.storage.update(id, updateArtistDto);
+    return this.storage.updateArtist(id, updateArtistDto);
   }
 
   remove(id: string) {
-    return this.storage.delete(id);
-  }
-
-  private removeArtistFromTracks(id: string) {
-    const tracks = this.tracksStorage.getAll();
+    return this.storage.deleteArtist(id);
   }
 }

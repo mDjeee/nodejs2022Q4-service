@@ -1,35 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { InMemoryFavsStore } from './store/favs.storage';
+import { InMemoryDB } from 'src/db/db';
 
 @Injectable()
 export class FavsService {
-  constructor(private store: InMemoryFavsStore) {}
+  constructor(private store: InMemoryDB) {}
 
   findAll() {
-    return this.store.getAll();
+    return this.store.getAllFavs();
   }
 
   createArtist(id: string) {
-    return this.store.createArtist(id);
+    return this.store.createFavArtist(id);
   }
 
   createAlbum(id: string) {
-    return this.store.createAlbum(id);
+    return this.store.createFavAlbum(id);
   }
 
   createTrack(id: string) {
-    return this.store.createTrack(id);
+    return this.store.createFavTrack(id);
   }
 
   removeArtist(id: string) {
-    return this.store.removeArtist(id);
+    return this.store.removeArtistFromFav(id);
   }
 
   removeAlbum(id: string) {
-    return this.store.removeAlbum(id);
+    return this.store.removeAlbumFromFav(id);
   }
 
   removeTrack(id: string) {
-    return this.store.removeTrack(id);
+    return this.store.removeTrackFromFav(id);
   }
 }
