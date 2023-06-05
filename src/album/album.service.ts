@@ -2,10 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { InMemoryAlbumsStore } from './store/album.storage';
+import { InMemoryTracksStore } from 'src/track/store/track.store';
 
 @Injectable()
 export class AlbumService {
-  constructor(private storage: InMemoryAlbumsStore) {}
+  constructor(
+    private storage: InMemoryAlbumsStore,
+    private tracksStorage: InMemoryTracksStore,
+  ) {}
   create(createAlbumDto: CreateAlbumDto) {
     return this.storage.create(createAlbumDto);
   }
@@ -23,6 +27,7 @@ export class AlbumService {
   }
 
   remove(id: string) {
+    this.tracksStorage.removeAlbum(id);
     return this.storage.delete(id);
   }
 }
