@@ -42,4 +42,17 @@ export class InMemoryAlbumsStore implements AlbumsStore {
   delete(id: string) {
     this.albums = this.albums.filter((album) => album.id !== id);
   }
+
+  removeArtist(id: string) {
+    this.albums = this.albums.map((album) => {
+      if (album.id === id) {
+        return {
+          artistId: null,
+          ...album,
+        };
+      } else {
+        return album;
+      }
+    });
+  }
 }
