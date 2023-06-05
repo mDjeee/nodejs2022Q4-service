@@ -6,7 +6,11 @@ import { InMemoryTracksStore } from 'src/track/store/track.store';
 
 @Injectable()
 export class InMemoryFavsStore {
-  private favs: IFav;
+  private favs: IFav = {
+    artists: [],
+    albums: [],
+    tracks: [],
+  };
 
   constructor(
     private artistsStore: InMemoryArtistsStore,

@@ -1,34 +1,43 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Param, Delete } from '@nestjs/common';
 import { FavsService } from './favs.service';
-import { CreateFavDto } from './dto/create-fav.dto';
-import { UpdateFavDto } from './dto/update-fav.dto';
+import { ValidUUID } from 'src/decorators/uuid-param.decorator';
 
 @Controller('favs')
 export class FavsController {
   constructor(private readonly favsService: FavsService) {}
-
-  @Post()
-  create(@Body() createFavDto: CreateFavDto) {
-    return this.favsService.create(createFavDto);
-  }
 
   @Get()
   findAll() {
     return this.favsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.favsService.findOne(+id);
+  @Post('track/:id')
+  addFavoriteTrack(@ValidUUID('id') id: string) {
+    return this.favsService.createTrack(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFavDto: UpdateFavDto) {
-    return this.favsService.update(+id, updateFavDto);
+  @Delete('track/:id')
+  removeFavoriteTrack(@ValidUUID('id') id: string) {
+    return this.favsService.removeTrack(id);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.favsService.remove(+id);
+  @Post('album/:id')
+  addFavoriteAlbum(@ValidUUID('id') id: string) {
+    return this.favsService.createAlbum(id);
+  }
+
+  @Delete('album/:id')
+  removeFavoriteAlbum(@ValidUUID('id') id: string) {
+    return this.favsService.removeAlbum(id);
+  }
+
+  @Post('artist/:id')
+  addFavoriteArtist(@ValidUUID('id') id: string) {
+    return this.favsService.createArtist(id);
+  }
+
+  @Delete('artist/:id')
+  removeFavoriteArtist(@ValidUUID('id') id: string) {
+    return this.favsService.removeArtist(id);
   }
 }

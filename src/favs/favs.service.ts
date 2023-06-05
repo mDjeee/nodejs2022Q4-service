@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFavDto } from './dto/create-fav.dto';
-import { UpdateFavDto } from './dto/update-fav.dto';
+import { InMemoryFavsStore } from './store/favs.storage';
 
 @Injectable()
 export class FavsService {
-  create(createFavDto: CreateFavDto) {
-    return 'This action adds a new fav';
-  }
+  constructor(private store: InMemoryFavsStore) {}
 
   findAll() {
-    return `This action returns all favs`;
+    return this.store.getAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} fav`;
+  createArtist(id: string) {
+    return this.store.createArtist(id);
   }
 
-  update(id: number, updateFavDto: UpdateFavDto) {
-    return `This action updates a #${id} fav`;
+  createAlbum(id: string) {
+    return this.store.createAlbum(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} fav`;
+  createTrack(id: string) {
+    return this.store.createTrack(id);
+  }
+
+  removeArtist(id: string) {
+    return this.store.removeArtist(id);
+  }
+
+  removeAlbum(id: string) {
+    return this.store.removeAlbum(id);
+  }
+
+  removeTrack(id: string) {
+    return this.store.removeTrack(id);
   }
 }
