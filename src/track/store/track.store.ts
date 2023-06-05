@@ -45,4 +45,30 @@ export class InMemoryTracksStore implements TracksStore {
   delete(id: string) {
     this.tracks.filter((track) => track.id !== id);
   }
+
+  removeArtist(id: string) {
+    this.tracks = this.tracks.map((track) => {
+      if (track.artistId === id) {
+        return {
+          artistId: null,
+          ...track,
+        };
+      } else {
+        return track;
+      }
+    });
+  }
+
+  removeAlbum(id: string) {
+    this.tracks = this.tracks.map((track) => {
+      if (track.albumId === id) {
+        return {
+          albumId: null,
+          ...track,
+        };
+      } else {
+        return track;
+      }
+    });
+  }
 }
