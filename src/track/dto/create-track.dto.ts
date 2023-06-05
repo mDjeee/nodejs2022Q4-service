@@ -5,14 +5,14 @@ export class CreateTrackDto {
   @IsString()
   name: string;
 
+  @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @IsOptional()
   artistId: string | null; // refers to Artist
 
+  @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @IsOptional()
   albumId: string | null; // refers to Album
 
   @IsNotEmpty()
