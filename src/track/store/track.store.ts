@@ -4,10 +4,13 @@ import { ITrack } from '../interfaces/track.interface';
 import { CreateTrackDto } from '../dto/create-track.dto';
 import { v4 as uuid } from 'uuid';
 import { UpdateTrackDto } from '../dto/update-track.dto';
+import { InMemoryFavsStore } from 'src/favs/store/favs.storage';
 
 @Injectable()
 export class InMemoryTracksStore implements TracksStore {
   private tracks: ITrack[] = [];
+
+  constructor(private favsStore: InMemoryFavsStore) {}
 
   create(params: CreateTrackDto) {
     const track = {
@@ -43,6 +46,7 @@ export class InMemoryTracksStore implements TracksStore {
   }
 
   delete(id: string) {
+    this.favsStore.removeTrack(id);
     this.tracks.filter((track) => track.id !== id);
   }
 

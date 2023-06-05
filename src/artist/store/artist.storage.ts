@@ -4,10 +4,13 @@ import { ArtistsStore } from '../interfaces/artist-storage.interface';
 import { CreateArtistDto } from '../dto/create-artist.dto';
 import { v4 as uuid } from 'uuid';
 import { UpdateArtistDto } from '../dto/update-artist.dto';
+import { InMemoryFavsStore } from 'src/favs/store/favs.storage';
 
 @Injectable()
 export class InMemoryArtistsStore implements ArtistsStore {
   private artists: IArtist[] = [];
+
+  constructor(private favsStore: InMemoryFavsStore) {}
 
   getAll() {
     return this.artists;
@@ -29,6 +32,7 @@ export class InMemoryArtistsStore implements ArtistsStore {
   }
 
   delete(id: string) {
+    this.favsStore.removeArtist(id);
     this.artists = this.artists.filter((artist) => artist.id !== id);
   }
 

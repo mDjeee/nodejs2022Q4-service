@@ -1,1 +1,3 @@
-export class CreateFavDto {}
+export class CreateFavArtistDto {}
+export class CreateFavAlbumDto {}
+export class CreateFavTrackDto {}

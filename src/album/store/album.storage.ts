@@ -4,10 +4,13 @@ import { IAlbum } from '../interfaces/album.interface';
 import { CreateAlbumDto } from '../dto/create-album.dto';
 import { v4 as uuid } from 'uuid';
 import { UpdateAlbumDto } from '../dto/update-album.dto';
+import { InMemoryFavsStore } from 'src/favs/store/favs.storage';
 
 @Injectable()
 export class InMemoryAlbumsStore implements AlbumsStore {
   private albums: IAlbum[] = [];
+
+  constructor(private favsStore: InMemoryFavsStore) {}
 
   create(params: CreateAlbumDto): IAlbum {
     const album = {
@@ -40,6 +43,7 @@ export class InMemoryAlbumsStore implements AlbumsStore {
   }
 
   delete(id: string) {
+    this.favsStore.removeAlbum(id);
     this.albums = this.albums.filter((album) => album.id !== id);
   }
 
